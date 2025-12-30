@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hospital Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #1554b3;
+      --primary-dark: #0f3f84;
+      --secondary: #0f9d9b;
+      --accent-green: #2e7d32;
+      --accent-red: #d32f2f;
+      --bg-page: #f3f6fb;
+      --bg-light: #f7f9fe;
+      --card-bg: #ffffff;
+      --border-soft: #d5def0;
+      --text-main: #102133;
+      --text-muted: #4b5563;
+      --shadow-soft: 0 14px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    * ,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* HERO – keep as you liked */
+
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4.5rem 10%;
+      min-height: 90vh;
+      background:
+        radial-gradient(circle at top left, rgba(21, 84, 179, 0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(15, 157, 155, 0.12), transparent 55%),
+        linear-gradient(180deg, #f8fbff, #edf2ff);
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 6% 8%;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 620px;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.25rem 0.9rem;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary-dark);
+      margin-bottom: 0.9rem;
+      border: 1px solid rgba(214, 225, 250, 0.9);
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent-green), var(--secondary));
+    }
+
+    .hero h1 {
+      font-size: 3.1rem;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.9rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s ease,
+                  box-shadow 0.15s ease,
+                  background-color 0.15s ease,
+                  border-color 0.15s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 12px 30px rgba(21, 84, 179, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(21, 84, 179, 0.4);
+    }
+
+    .btn-outline {
+      background-color: #ffffff;
+      color: var(--primary-dark);
+      border-color: #c3cff5;
+    }
+
+    .btn-outline:hover {
+      background-color: var(--bg-light);
+      border-color: var(--primary);
+    }
+
+    .btn-emergency {
+      background: linear-gradient(135deg, var(--accent-red), #b71c1c);
+      color: #ffffff;
+      box-shadow: 0 12px 30px rgba(211, 47, 47, 0.35);
+    }
+
+    .btn-emergency:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(211, 47, 47, 0.45);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .stat {
+      min-width: 120px;
+    }
+
+    .stat h2 {
+      margin: 0;
+      font-size: 1.7rem;
+      color: var(--primary-dark);
+    }
+
+    .stat p {
+      margin: 0.2rem 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-trust {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-image {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      inset: -14px -18px 20px 26px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(21, 84, 179, 0.18),
+                                           rgba(15, 157, 155, 0.08));
+      z-index: -1;
+    }
+
+    .hero-image img {
+      width: 490px;
+      border-radius: 26px;
+      box-shadow: var(--shadow-soft);
+      object-fit: cover;
+    }
+
+    /* GENERIC LAYOUT */
+
+    .section {
+      padding: 4rem 10%;
+    }
+
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .section-subtitle {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0;
+    }
+
+    /* SERVICES – more advanced with icons and category labels */
+
+    .section-services {
+      background: radial-gradient(circle at top right, #e9f3ff, transparent 55%),
+                  #ffffff;
+    }
+
+    .services-top-note {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .service-card {
+      background-color: var(--card-bg);
+      border-radius: 18px;
+      padding: 1.6rem 1.5rem;
+      border: 1px solid rgba(213, 222, 240, 0.9);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+      transition: transform 0.15s ease,
+                  box-shadow 0.15s ease,
+                  border-color 0.15s ease,
+                  background-color 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 90px;
+      height: 90px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(21, 84, 179, 0.1), transparent 60%);
+    }
+
+    .service-tag {
+      display: inline-block;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary-dark);
+      background-color: #e5efff;
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+
+    .service-meta {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      margin: 0;
+      font-size: 0.94rem;
+      color: var(--text-muted);
+    }
+
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-soft);
+      border-color: rgba(21, 84, 179, 0.35);
+      background-color: #f9fbff;
+    }
+
+    /* DOCTORS – two-column layout with richer info */
+
+    .section-doctors {
+      background-color: var(--bg-light);
+    }
+
+    .doctors-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2.3rem;
+      align-items: flex-start;
+    }
+
+    .doctor-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .doctor-card {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.4rem 1.4rem 1.2rem;
+      border: 1px solid rgba(213, 222, 240, 0.9);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    }
+
+    .doctor-card h3 {
+      margin: 0 0 0.15rem;
+      font-size: 1.02rem;
+    }
+
+    .doctor-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .doctor-meta {
+      margin-top: 0.4rem;
+      font-size: 0.86rem;
+    }
+
+    .doctor-extra {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.7rem;
+    }
+
+    .doctor-highlight {
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      border: 1px solid rgba(213, 222, 240, 0.9);
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+    }
+
+    .doctor-highlight h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+      font-size: 1.15rem;
+    }
+
+    .doctor-highlight ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .doctor-highlight li + li {
+      margin-top: 0.25rem;
+    }
+
+    /* TESTIMONIALS – with rating and layout tweaks */
+
+    .section-testimonials {
+      background: radial-gradient(circle at top left, #e6f5ff, transparent 60%),
+                  #ffffff;
+    }
+
+    .testimonials-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2.3rem;
+      align-items: center;
+    }
+
+    .testimonial-card {
+      background-color: var(--card-bg);
+      border-radius: 18px;
+      padding: 1.6rem 1.5rem;
+      border: 1px solid rgba(213, 222, 240, 0.9);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: "“";
+      position: absolute;
+      top: -20px;
+      left: 18px;
+      font-size: 4rem;
+      color: rgba(21, 84, 179, 0.12);
+      line-height: 1;
+    }
+
+    .quote {
+      margin: 0;
+      font-style: italic;
+      color: var(--text-main);
+    }
+
+    .author {
+      margin-top: 0.75rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .rating-line {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    .stars {
+      color: #fbbf24;
+      margin-right: 0.35rem;
+    }
+
+    .testimonial-aside {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .testimonial-aside strong {
+      color: var(--primary-dark);
+    }
+
+    /* CONTACT / APPOINTMENT – with info chips */
+
+    .section-contact {
+      background-color: var(--bg-light);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr);
+      gap: 2.3rem;
+      align-items: flex-start;
+    }
+
+    .contact-info h3 {
+      margin-top: 0;
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-info p {
+      margin: 0.2rem 0;
+      color: var(--text-muted);
+      font-size: 0.94rem;
+    }
+
+    .info-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .info-chip {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background-color: #e5efff;
+      color: var(--primary-dark);
+    }
+
+    .appointment-form {
+      background-color: var(--card-bg);
+      border-radius: 18px;
+      padding: 1.6rem 1.6rem 1.4rem;
+      border: 1px solid rgba(213, 222, 240, 0.95);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .appointment-form label {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .appointment-form input,
+    .appointment-form select {
+      padding: 0.65rem 0.7rem;
+      border-radius: 9px;
+      border: 1px solid #cbd5f0;
+      font-size: 0.9rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      background-color: #ffffff;
+      color: var(--text-main);
+    }
+
+    .appointment-form input::placeholder {
+      color: #9ca3af;
+    }
+
+    .appointment-form input:focus,
+    .appointment-form select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(21, 84, 179, 0.25);
+    }
+
+    /* EMERGENCY – slimmer but high contrast */
+
+    .section-emergency {
+      background-color: #fff0f0;
+      color: #7f1d1d;
+      padding: 2.4rem 10% 3rem;
+    }
+
+    .section-emergency h2 {
+      margin: 0 0 0.4rem;
+      color: #7f1d1d;
+      font-size: 1.6rem;
+    }
+
+    .section-emergency p {
+      margin: 0;
+      color: #991b1b;
+      font-size: 0.96rem;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 960px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 3.5rem 1.5rem 3rem;
+      }
+
+      .hero::after {
+        inset: 8% 5%;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .hero-image {
+        margin-bottom: 2rem;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .section {
+        padding: 3rem 1.5rem;
+      }
+
+      .doctors-layout,
+      .testimonials-layout,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO (unchanged except image URL) -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="badge">Your Health, Our Priority</p>
+      <h1>Expert Medical Care for Your Whole Family</h1>
+      <p class="subtitle">
+        Consult top specialists, book appointments online, and access quality care
+        with advanced diagnostics and compassionate staff.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#book" class="btn btn-primary">Book Appointment</a>
+        <a href="#services" class="btn btn-outline">View Services</a>
+        <a href="#emergency" class="btn btn-emergency">24/7 Emergency</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <h2>150+</h2>
+          <p>Qualified doctors</p>
+        </div>
+        <div class="stat">
+          <h2>25+</h2>
+          <p>Specialty departments</p>
+        </div>
+        <div class="stat">
+          <h2>10k+</h2>
+          <p>Patients treated yearly</p>
+        </div>
+      </div>
+
+      <div class="hero-trust">
+        <p>
+          NABH accredited · ISO certified lab · Cashless insurance support
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img
+        src="https://images.pexels.com/photos/6129505/pexels-photo-6129505.jpeg"
+        alt="Friendly medical team in hospital"
+      />
+    </div>
+  </section>
+
+  <!-- SERVICES – advanced layout -->
+  <section id="services" class="section section-services">
+    <div class="section-title-row">
+      <div>
+        <h2>Our Key Medical Services</h2>
+        <p class="section-subtitle">
+          Comprehensive care supported by modern technology and evidence-based protocols.
+        </p>
+      </div>
+      <p class="services-top-note">
+        Inpatient, outpatient, and day-care services under one roof.
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <article class="service-card">
+        <span class="service-tag">Emergency</span>
+        <h3>Emergency & Trauma Care</h3>
+        <p class="service-meta">24/7 | Triage within minutes | Ambulance support</p>
+        <p>
+          Dedicated emergency bays, rapid stabilization, and multidisciplinary critical care teams
+          for time-sensitive conditions and trauma cases.
+        </p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-tag">Cardiology</span>
+        <h3>Cardiology & Heart Care</h3>
+        <p class="service-meta">Cath lab | Echo | Stress tests</p>
+        <p>
+          Advanced cardiac diagnostics, angioplasty, pacemaker implantation,
+          and structured cardiac rehabilitation programs.
+        </p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-tag">Mother & Child</span>
+        <h3>Mother & Child Care</h3>
+        <p class="service-meta">Obstetrics · Pediatrics · NICU</p>
+        <p>
+          Comprehensive antenatal care, pain‑managed delivery, and neonatal intensive care
+          supported by experienced pediatric specialists.
+        </p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-tag">Diagnostics</span>
+        <h3>Diagnostics & Lab</h3>
+        <p class="service-meta">Imaging | Pathology | Health checkups</p>
+        <p>
+          Digital X‑ray, CT, MRI, ultrasound, and fully automated lab
+          with same‑day reports for most investigations.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- DOCTORS – advanced layout -->
+  <section id="doctors" class="section section-doctors">
+    <div class="section-title-row">
+      <div>
+        <h2>Meet Our Specialists</h2>
+        <p class="section-subtitle">
+          Experienced consultants across major specialties focused on patient-centered treatment.
+        </p>
+      </div>
+      <p class="services-top-note">
+        Board‑certified doctors with regional and international experience.
+      </p>
+    </div>
+
+    <div class="doctors-layout">
+      <div class="doctor-list">
+        <article class="doctor-card">
+          <h3>Dr. A. Sharma</h3>
+          <p>Senior Cardiologist · 18+ years experience</p>
+          <p class="doctor-meta">MD, DM (Cardiology) · Special interest in complex angioplasty.</p>
+          <p class="doctor-extra">Languages: English, Hindi, Gujarati</p>
+        </article>
+
+        <article class="doctor-card">
+          <h3>Dr. N. Patel</h3>
+          <p>Consultant Pediatrician · 12+ years experience</p>
+          <p class="doctor-meta">MBBS, MD (Pediatrics) · Dedicated to child and newborn care.</p>
+          <p class="doctor-extra">Child growth, vaccination, and allergy management.</p>
+        </article>
+
+        <article class="doctor-card">
+          <h3>Dr. R. Khan</h3>
+          <p>Senior Orthopedic Surgeon · 15+ years experience</p>
+          <p class="doctor-meta">MS (Ortho) · Joint replacement and sports injuries.</p>
+          <p class="doctor-extra">Minimally invasive and arthroscopic procedures.</p>
+        </article>
+      </div>
+
+      <aside class="doctor-highlight">
+        <h3>Why Patients Choose Our Team</h3>
+        <ul>
+          <li>Multidisciplinary case discussions for complex conditions.</li>
+          <li>Evidence‑based protocols aligned with international guidelines.</li>
+          <li>Dedicated nursing teams for each specialty unit.</li>
+          <li>Personalized treatment plans with clear communication.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS – advanced layout -->
+  <section class="section section-testimonials">
+    <div class="section-title-row">
+      <div>
+        <h2>What Our Patients Say</h2>
+        <p class="section-subtitle">
+          Real stories from patients who trusted us with their health.
+        </p>
+      </div>
+      <p class="services-top-note">
+        Consistent 4.8/5 average rating across major review platforms.
+      </p>
+    </div>
+
+    <div class="testimonials-layout">
+      <div class="card-grid">
+        <article class="testimonial-card">
+          <p class="quote">
+            “From admission to discharge, the staff were kind, transparent, and very professional.
+            The doctors explained every step clearly.”
+          </p>
+          <p class="author">– R. Mehta</p>
+          <p class="rating-line">
+            <span class="stars">★★★★★</span>
+            Admitted for cardiac procedure
+          </p>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="quote">
+            “Clean rooms, quick reports, and the pediatric team took excellent care of my child.
+            Highly recommended for families.”
+          </p>
+          <p class="author">– S. Iyer</p>
+          <p class="rating-line">
+            <span class="stars">★★★★★</span>
+            Pediatric emergency & follow‑up
+          </p>
+        </article>
+      </div>
+
+      <aside class="testimonial-aside">
+        <p>
+          <strong>Patient comfort and clear communication</strong> are central to how care is delivered,
+          from OPD visits to surgery and rehabilitation.
+        </p>
+        <p style="margin-top:0.75rem;">
+          Feedback is reviewed regularly so that services, waiting times, and facilities
+          continuously improve for patients and their families.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CONTACT / APPOINTMENT – advanced layout -->
+  <section id="book" class="section section-contact">
+    <div class="section-title-row">
+      <div>
+        <h2>Book an Appointment</h2>
+        <p class="section-subtitle">
+          Call us or request a callback and our care team will guide you.
+        </p>
+      </div>
+      <p class="services-top-note">
+        OPD: 9:00 AM – 7:00 PM · Emergency: 24/7
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Call & Visit</h3>
+        <p><strong>Phone:</strong> +91-00000-00000</p>
+        <p><strong>Emergency:</strong> 108 / 24×7 helpdesk</p>
+        <p><strong>Address:</strong> Your Hospital Name, City, State</p>
+        <p><strong>Email:</strong> info@yourhospital.com</p>
+
+        <div class="info-chip-row">
+          <span class="info-chip">Cashless insurance</span>
+          <span class="info-chip">Online reports</span>
+          <span class="info-chip">Wheelchair accessible</span>
+        </div>
+      </div>
+
+      <form class="appointment-form">
+        <label>
+          Full Name
+          <input type="text" placeholder="Enter your full name" />
+        </label>
+        <label>
+          Mobile Number
+          <input type="tel" placeholder="Enter your mobile number" />
+        </label>
+        <label>
+          Preferred Department
+          <select>
+            <option>Select department</option>
+            <option>Cardiology</option>
+            <option>Orthopedics</option>
+            <option>Pediatrics</option>
+            <option>General Medicine</option>
+          </select>
+        </label>
+        <label>
+          Preferred Date
+          <input type="date" />
+        </label>
+        <button type="submit" class="btn btn-primary">Request Callback</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- EMERGENCY -->
+  <section id="emergency" class="section section-emergency">
+    <h2>24/7 Emergency Care</h2>
+    <p>
+      For life‑threatening emergencies, please call our emergency number immediately
+      or visit the Emergency Department entrance.
+    </p>
+  </section>
+
+</body>
+</html>

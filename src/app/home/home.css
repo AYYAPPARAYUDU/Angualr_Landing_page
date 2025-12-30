@@ -1,23 +1,20 @@
 :root {
     --primary: #1554b3;
-    /* hospital blue */
     --primary-dark: #0f3f84;
     --secondary: #0f9d9b;
-    /* teal accent */
     --accent-green: #2e7d32;
-    /* success / wellness */
     --accent-red: #d32f2f;
-    /* emergency CTA */
     --bg-page: #f3f6fb;
     --bg-light: #f7f9fe;
     --card-bg: #ffffff;
     --border-soft: #d5def0;
     --text-main: #102133;
     --text-muted: #4b5563;
+    /* darker for readability */
     --shadow-soft: 0 14px 40px rgba(15, 23, 42, 0.12);
 }
 
-/* Global reset / base */
+/* Global */
 *,
 *::before,
 *::after {
@@ -32,13 +29,7 @@ body {
     line-height: 1.5;
 }
 
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* HERO SECTION */
-
+/* Hero */
 .hero {
     position: relative;
     display: flex;
@@ -106,8 +97,7 @@ img {
     margin-bottom: 2rem;
 }
 
-/* HERO BUTTONS */
-
+/* Buttons */
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
@@ -126,10 +116,8 @@ img {
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    transition: transform 0.15s ease,
-        box-shadow 0.15s ease,
-        background-color 0.15s ease,
-        border-color 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-primary {
@@ -165,8 +153,7 @@ img {
     box-shadow: 0 16px 40px rgba(211, 47, 47, 0.45);
 }
 
-/* HERO STATS */
-
+/* Stats */
 .hero-stats {
     display: flex;
     flex-wrap: wrap;
@@ -195,8 +182,7 @@ img {
     color: var(--text-muted);
 }
 
-/* HERO IMAGE */
-
+/* Hero image */
 .hero-image {
     position: relative;
     z-index: 1;
@@ -207,20 +193,19 @@ img {
     position: absolute;
     inset: -14px -18px 20px 26px;
     border-radius: 32px;
-    background: linear-gradient(135deg, rgba(21, 84, 179, 0.18),
-            rgba(15, 157, 155, 0.08));
+    background: linear-gradient(135deg, rgba(21, 84, 179, 0.18), rgba(15, 157, 155, 0.08));
     z-index: -1;
 }
 
 .hero-image img {
     width: 490px;
+    max-width: 100%;
     border-radius: 26px;
     box-shadow: var(--shadow-soft);
     object-fit: cover;
 }
 
-/* GENERIC SECTIONS */
-
+/* Generic sections */
 .section {
     padding: 4rem 10%;
     background-color: transparent;
@@ -243,8 +228,7 @@ img {
     margin-bottom: 2.3rem;
 }
 
-/* CARDS (services, doctors, testimonials) */
-
+/* Cards */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -257,9 +241,7 @@ img {
     padding: 1.6rem;
     border: 1px solid rgba(213, 222, 240, 0.9);
     box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
-    transition: transform 0.15s ease,
-        box-shadow 0.15s ease,
-        border-color 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .card:hover {
@@ -281,7 +263,7 @@ img {
     color: var(--text-muted);
 }
 
-/* Doctors section extra text */
+/* Doctors */
 .doctor-card .doctor-meta {
     margin-top: 0.4rem;
     font-size: 0.88rem;
@@ -299,8 +281,7 @@ img {
     color: var(--primary-dark);
 }
 
-/* CONTACT / APPOINTMENT SECTION */
-
+/* Contact section */
 .section-contact .contact-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr);
@@ -357,8 +338,7 @@ img {
     box-shadow: 0 0 0 1px rgba(21, 84, 179, 0.25);
 }
 
-/* EMERGENCY SECTION */
-
+/* Emergency info – better contrast */
 .section-emergency {
     background-color: #fff0f0;
     color: #7f1d1d;
@@ -372,8 +352,7 @@ img {
     color: #991b1b;
 }
 
-/* RESPONSIVE */
-
+/* Responsive */
 @media (max-width: 960px) {
     .hero {
         flex-direction: column-reverse;

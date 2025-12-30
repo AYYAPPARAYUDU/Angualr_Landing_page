@@ -1,0 +1,56 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1976d2;
+    padding: 1rem 1.5rem;
+}
+
+/* Logo */
+.navbar-logo {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* Links container */
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Individual links */
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.25rem 0.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.navbar-links a:hover {
+    background-color: #1565c0;
+    border-radius: 4px;
+}
+
+/* Optional: small screen stacking */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-links {
+        margin-top: 0.5rem;
+    }
+}
